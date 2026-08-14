@@ -1,0 +1,18 @@
+// Last updated: 8/14/2026, 10:10:03 AM
+class Solution {
+    public boolean canJump(int[] nums) {
+        int maxReach = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            // If current index is not reachable
+            if (i > maxReach) {
+                return false;
+            }
+
+            // Update farthest reachable index
+            maxReach = Math.max(maxReach, i + nums[i]);
+        }
+
+        return true;
+    }
+}
