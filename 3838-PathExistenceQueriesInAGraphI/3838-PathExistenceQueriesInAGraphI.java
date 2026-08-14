@@ -1,0 +1,31 @@
+// Last updated: 8/14/2026, 9:58:02 AM
+class Solution {
+    public boolean[] pathExistenceQueries(int n, int[] nums, int maxDiff, int[][] queries) {
+
+        // component[i] = Connected Component ID of index i
+        int[] component = new int[n];
+        component[0] = 0;
+
+        int id = 0;
+
+        // Assign component IDs
+        for (int i = 1; i < n; i++) {
+            if (nums[i] - nums[i - 1] > maxDiff) {
+                id++;
+            }
+            component[i] = id;
+        }
+
+        // Answer queries
+        boolean[] ans = new boolean[queries.length];
+
+        for (int i = 0; i < queries.length; i++) {
+            int u = queries[i][0];
+            int v = queries[i][1];
+
+            ans[i] = (component[u] == component[v]);
+        }
+
+        return ans;
+    }
+}
