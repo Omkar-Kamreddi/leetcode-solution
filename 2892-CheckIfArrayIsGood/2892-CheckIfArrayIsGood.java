@@ -1,0 +1,40 @@
+// Last updated: 8/14/2026, 10:00:10 AM
+class Solution {
+    public boolean isGood(int[] nums) {
+
+        int n = 0;
+
+        // Find maximum element
+        for (int num : nums) {
+            n = Math.max(n, num);
+        }
+
+        // Length must be n + 1
+        if (nums.length != n + 1) {
+            return false;
+        }
+
+        int[] freq = new int[n + 1];
+
+        // Count frequency
+        for (int num : nums) {
+
+            // Number should be between 1 and n
+            if (num < 1 || num > n) {
+                return false;
+            }
+
+            freq[num]++;
+        }
+
+        // Check 1 to n-1 appear exactly once
+        for (int i = 1; i < n; i++) {
+            if (freq[i] != 1) {
+                return false;
+            }
+        }
+
+        // n should appear exactly twice
+        return freq[n] == 2;
+    }
+}
