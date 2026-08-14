@@ -1,0 +1,27 @@
+// Last updated: 8/14/2026, 10:10:50 AM
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        HashSet<String> set = new HashSet<String>();
+
+        for(int i=0; i<board.length; i++){
+            for(int j=0; j< board.length; j++){
+                char num = board[i][j];
+
+                if(num == '.')
+                    continue;
+                
+                String row = "row"+i+"-"+num;
+                String col = "col"+j+"-"+num;
+                String box = "box"+(i/3)+","+(j/3)+"-"+num;
+
+                if(set.contains(row) || set.contains(col) || set.contains(box)){
+                    return false;
+                }
+                set.add(row);
+                set.add(col);
+                set.add(box);
+            }
+        }
+        return true;
+    }
+}
