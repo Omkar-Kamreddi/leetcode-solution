@@ -1,0 +1,29 @@
+// Last updated: 8/14/2026, 9:59:58 AM
+class Solution {
+    public boolean checkStrings(String s1, String s2) {
+
+        if(s1.length() != s2.length())
+            return false;
+
+        int even1[] = new int[26];
+        int even2[] = new int[26];
+        int odd1[] = new int[26];
+        int odd2[] = new int[26];
+
+        for(int i=0; i<s2.length(); i++){
+            if(i %2 ==0){
+                even1[s1.charAt(i) - 'a']++;
+                even2[s2.charAt(i) - 'a']++;
+            }else{
+                odd1[s1.charAt(i) - 'a']++;
+                odd2[s2.charAt(i) - 'a']++;
+            }
+        }        
+
+        for(int i=0; i<26; i++){
+            if(even1[i] != even2[i] || odd1[i] != odd2[i])
+                return false;
+        }
+        return true;
+    }
+}
