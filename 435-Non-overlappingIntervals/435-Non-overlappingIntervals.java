@@ -1,36 +1,64 @@
-// Last updated: 9/12/2026, 8:53:05 PM
-1class Solution {
-2
-3    //Two Pointer approach : Move the pointer based on whose interval ends first
-4    public int[][] intervalIntersection(int[][] firstList, int[][] secondList) {
-5
-6        List<int[]> result = new ArrayList<>();
-7
-8        int i =0, j = 0;
-9
-10        while(i < firstList.length && j < secondList.length){
-11            
-12            //Current interval
-13            int []first = firstList[i];
-14            int second[] = secondList[j];
-15
-16            //Find intersection
-17            int start = Math.max(first[0],second[0]);
-18            int end = Math.min(first[1],second[1]);
+// Last updated: 9/12/2026, 10:01:24 PM
+1// class Solution {
+2//     public int findLongestChain(int[][] pairs) {
+3//         Arrays.sort(pairs,(a,b)->a[0]-b[0]);
+4//         return findLongest(0,Integer.MIN_VALUE,pairs);
+5//     }
+6
+7//     public int findLongest(int index,int prevEnd,int [][]pairs){
+8
+9//         //Base case
+10//         if(index == pairs.length){
+11//             return 0;
+12//         }
+13
+14//         //Skip curr Pair
+15//         int skip = findLongest(index+1,prevEnd,pairs);
+16
+17//         //Take Curr Pair if possible
+18//         int take = 0;
 19
-20            //valid interset
-21            if(start <= end){
-22                result.add(new int[]{start,end});
-23            }
-24
-25            //move interval that ends first
-26            if(first[1]<second[1]){
-27                i++;
-28            }else{
-29                j++;
-30            }
-31        }
-32        
-33        return result.toArray(new int[result.size()][]);
-34    }
-35}
+20//         if(pairs[index][0]>prevEnd){
+21//             take = 1+ findLongest(index+1,pairs[index][1],pairs);
+22//         }
+23
+24//         return Math.max(skip,take);
+25//     }
+26// }
+27
+28
+29import java.util.*;
+30
+31class Solution {
+32
+33    public int findLongestChain(int[][] pairs) {
+34
+35        Arrays.sort(pairs, (a, b) ->
+36                Integer.compare(a[0], b[0]));
+37
+38        int n = pairs.length;
+39
+40        int[] dp = new int[n];
+41        Arrays.fill(dp, 1);
+42
+43        int answer = 1;
+44
+45        for (int i = 0; i < n; i++) {
+46
+47            for (int j = 0; j < i; j++) {
+48
+49                if (pairs[j][1] < pairs[i][0]) {
+50
+51                    dp[i] = Math.max(
+52                            dp[i],
+53                            dp[j] + 1
+54                    );
+55                }
+56            }
+57
+58            answer = Math.max(answer, dp[i]);
+59        }
+60
+61        return answer;
+62    }
+63}
