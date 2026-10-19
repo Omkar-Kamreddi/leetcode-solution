@@ -1,4 +1,4 @@
-// Last updated: 10/19/2026, 9:38:44 PM
+// Last updated: 10/19/2026, 9:42:52 PM
 1public class Solution {
 2
 3    // IComparer(i) -> .Compare(T a,T b)
@@ -31,3 +31,5 @@
 30        return score;
 31    }
 32}
+33
+34// NOte : negativeCount = n / 2 tells us how many of the smallest squared values to subtract. All remaining squared values are added.
